@@ -17,25 +17,25 @@ public class StartState : FSMState
     private void EnterThis()
     { 
         Debug.Log("StartState Enter");
-        _rowList = Settings.Model.Get<List<SlotItemScroll>>("rowSlots");
-        _targetSpeed = Settings.Model.Get<int>("slotSpeed");
-        _duration = Settings.Model.Get<int>("duration");
-        //GetDataInModel();
+        //_rowList = Settings.Model.Get<List<SlotItemScroll>>("rowSlots");
+        //_targetSpeed = Settings.Model.Get<float>("slotSpeed");
+       // _duration = Settings.Model.Get<float>("duration");
+        GetDataInModel();
         //_elapsedTime = 0;
         
          foreach (var item in _rowList)
          {
-             //item.StartScrollAcceleration(_targetSpeed, _duration);
-             item.ScrollSpeed = 1000;
+             item.StartScrollAcceleration(_targetSpeed, _duration);
+             //item.ScrollSpeed = 1000;
          }
     }
 
-   /* private void GetDataInModel()
+    private void GetDataInModel()
     {
         _rowList = Settings.Model.Get<List<SlotItemScroll>>("rowSlots");
-        _targetSpeed = Settings.Model.Get<int>("slotSpeed");
-        _duration = Settings.Model.Get<int>("duration");
-    }*/
+        _targetSpeed = Settings.Model.Get<float>("slotSpeed");
+        _duration = Settings.Model.Get<float>("duration");
+    }
     
     [Bind("StopButton")]
     private void OnStopButtonClick()
