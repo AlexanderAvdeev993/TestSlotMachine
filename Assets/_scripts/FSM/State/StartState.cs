@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AxGrid;
-using AxGrid.Base;
 using AxGrid.FSM;
 using AxGrid.Model;
 using UnityEngine;
@@ -17,9 +16,6 @@ public class StartState : FSMState
     private void EnterThis()
     { 
         Debug.Log("StartState Enter");
-        //_rowList = Settings.Model.Get<List<SlotItemScroll>>("rowSlots");
-        //_targetSpeed = Settings.Model.Get<float>("slotSpeed");
-       // _duration = Settings.Model.Get<float>("duration");
         GetDataInModel();
         //_elapsedTime = 0;
         

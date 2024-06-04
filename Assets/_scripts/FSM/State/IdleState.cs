@@ -18,14 +18,4 @@ public class IdleState : FSMState
         Debug.Log("ClickButtonStart  in IdleState");
         Parent.Change("StartState");
     }
-    
-    
-   /* [One(5f)]
-    private void ChangeState()            //
-    {
-        Parent.Change("StopState");
-    }*/
-   
-   
-   
 }
