@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AxGrid;
-using AxGrid.Base;
 using AxGrid.FSM;
 using AxGrid.Model;
 using UnityEngine;
@@ -11,13 +10,13 @@ public class StartState : FSMState
     private List<SlotItemScroll> _rowList = new List<SlotItemScroll>();
     private float _duration;
     private float _targetSpeed;
+    private bool _isClickActive;
     
     [Enter]
     private void EnterThis()
     { 
         Debug.Log("StartState Enter");
         GetDataInModel();
-        
          foreach (var item in _rowList)
          {
              item.StartScrollAcceleration(_targetSpeed, _duration);
@@ -31,10 +30,19 @@ public class StartState : FSMState
         _duration = Settings.Model.Get<float>("duration");
     }
     
+    [One (3f)]
+    private void ChangeButtonAcyive()
+    {
+        _isClickActive = true;
+        Debug.Log("StopButtonActive");
+    }
+    
     [Bind("StopButton")]
     private void OnStopButtonClick()
     {
-        Debug.Log("ClickButtonStop");
-        Parent.Change("StopState");
+        if (_isClickActive)
+        {
+            Parent.Change("StopState");
+        }
     }
 }

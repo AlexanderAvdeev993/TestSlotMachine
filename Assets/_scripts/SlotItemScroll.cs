@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class SlotItemScroll : MonoBehaviour
 {
-    [SerializeField] private List<RectTransform> items;
+    [SerializeField] private List<RectTransform> _items;
     [SerializeField] private float _speedCloser;                 // скорость доводчика ряда
-    private float itemHeight;
-    private int itemCount;
-    private int firstItemIndex = 0;
-    private float scrollSpeed;
-    /*public float ScrollSpeed
-    {
-        get { return scrollSpeed; }
-        set { scrollSpeed = value; }
-    }*/
-
+    [SerializeField] private float _stopPosition;
+    private float _itemHeight;
+    private int _itemCount;
+    private int _firstItemIndex = 0;
+    private float _scrollSpeed;
+    
     private void Start()
     {
-        if (items.Count == 0)
+        if (_items.Count == 0)
         {
             Debug.LogError("Items list is empty!");
             return;
         }
 
-        itemHeight = items[0].rect.height;
-        itemCount = items.Count;
+        _itemHeight = _items[0].rect.height;
+        _itemCount = _items.Count;
     }
 
     private void Update()
@@ -36,21 +32,21 @@ public class SlotItemScroll : MonoBehaviour
 
     private void ScrollItems()
     {
-        foreach (RectTransform item in items)
+        foreach (RectTransform item in _items)
         {
-            item.anchoredPosition -= new Vector2(0, scrollSpeed * Time.deltaTime);
+            item.anchoredPosition -= new Vector2(0, _scrollSpeed * Time.deltaTime);
         }
     }
 
     private void CheckForReset()
     {
-        RectTransform firstItem = items[firstItemIndex];
-        RectTransform lastItem = items[(firstItemIndex + itemCount - 1) % itemCount];
+        RectTransform firstItem = _items[_firstItemIndex];
+        RectTransform lastItem = _items[(_firstItemIndex + _itemCount - 1) % _itemCount];
 
-        if (firstItem.anchoredPosition.y <= -itemHeight)
+        if (firstItem.anchoredPosition.y <= -_itemHeight)
         {
-            firstItem.anchoredPosition = new Vector2(firstItem.anchoredPosition.x, lastItem.anchoredPosition.y + itemHeight);
-            firstItemIndex = (firstItemIndex + 1) % itemCount;
+            firstItem.anchoredPosition = new Vector2(firstItem.anchoredPosition.x, lastItem.anchoredPosition.y + _itemHeight);
+            _firstItemIndex = (_firstItemIndex + 1) % _itemCount;
         }
     }
 
@@ -61,23 +57,23 @@ public class SlotItemScroll : MonoBehaviour
 
     private IEnumerator SmoothStopItem(float duration)
     {
-        float initialSpeed = scrollSpeed;
+        float initialSpeed = _scrollSpeed;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            scrollSpeed = Mathf.Lerp(initialSpeed, _speedCloser, elapsedTime / duration);
+            _scrollSpeed = Mathf.Lerp(initialSpeed, _speedCloser, elapsedTime / duration);
             yield return null;
         }
-        scrollSpeed = _speedCloser;
+        _scrollSpeed = _speedCloser;
         
-        while (true)
+        while (true)    // доводчик
         {   
-            RectTransform lastItem = items[(firstItemIndex + itemCount - 1) % itemCount];
-            if (Mathf.Abs(lastItem.anchoredPosition.y - 1050f) < 0.1f)
+            RectTransform lastItem = _items[(_firstItemIndex + _itemCount - 1) % _itemCount];
+            if (Mathf.Abs(lastItem.anchoredPosition.y - _stopPosition) < 0.3f)
             {
-                scrollSpeed = 0f; 
+                _scrollSpeed = 0f; 
                 yield break;
             }
             yield return null;
@@ -91,16 +87,16 @@ public class SlotItemScroll : MonoBehaviour
 
     private IEnumerator ScrollAccelerationCoroutine(float targetSpeed, float duration)
     {
-        float initialSpeed = scrollSpeed;
+        float initialSpeed = _scrollSpeed;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            scrollSpeed = Mathf.Lerp(initialSpeed, targetSpeed, elapsedTime / duration);
+            _scrollSpeed = Mathf.Lerp(initialSpeed, targetSpeed, elapsedTime / duration);
             yield return null;
         }
 
-        scrollSpeed = targetSpeed;
+        _scrollSpeed = targetSpeed;
     }
 }

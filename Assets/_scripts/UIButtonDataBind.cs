@@ -71,7 +71,7 @@ namespace AxGrid.Tools.Binders{
 
 		[OnStart]
 		public void start()
-		{
+		{   
 			Model.EventManager.AddAction($"On{enableField}Changed", OnItemEnable);
 			if (keyField == "")
 				keyField = $"{name}Key";
@@ -81,7 +81,6 @@ namespace AxGrid.Tools.Binders{
 				Model.EventManager.AddAction($"On{keyField}Changed", OnKeyChanged);
 			}
 			OnItemEnable();
-			
 		}
 
 		public void OnKeyChanged()
@@ -93,9 +92,8 @@ namespace AxGrid.Tools.Binders{
 			cancel = !onKeyPress;
 		}
 		
-
 		public void OnItemEnable()
-		{
+		{   
 			if (button.interactable != Model.GetBool(enableField, defaultEnable))
 				button.interactable = Model.GetBool(enableField, defaultEnable);
 		}
@@ -109,6 +107,7 @@ namespace AxGrid.Tools.Binders{
 				et.triggers.ForEach(t => t.callback.RemoveAllListeners());
 				et.triggers.Clear();
 			}
+		
 			Model.EventManager.RemoveAction($"On{enableField}Changed", OnItemEnable);
 			Model.EventManager.RemoveAction($"On{keyField}Changed", OnKeyChanged);
 		}

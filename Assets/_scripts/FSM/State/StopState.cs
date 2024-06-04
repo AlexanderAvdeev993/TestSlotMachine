@@ -9,15 +9,13 @@ public class StopState : FSMState
 {   
     private List<SlotItemScroll> _rowList = new List<SlotItemScroll>();
     private float _duration;
-    private int slotIndex;
-    private Coroutine stopCoroutine;
-    private float delayTime = 1f;
+    private int _slotIndex;
     
     [Enter]
     private void EnterThis()
     {
         Log.Debug(" Enter StopState ");
-        slotIndex = 0;
+        _slotIndex = 0;
         GetDataInModel();
     }
     
@@ -26,20 +24,15 @@ public class StopState : FSMState
         _rowList = Settings.Model.Get<List<SlotItemScroll>>("rowSlots");
         _duration = Settings.Model.Get<float>("duration");
     }
-
-    private IEnumerator stopCorutine()
-    {
-        yield return null;
-    }
     
     [Loop (3f)]
     private void LoopStopSlot()
     {   
-        if(_rowList.Count <= slotIndex)
+        if(_rowList.Count <= _slotIndex)
             return;
         
-        _rowList[slotIndex].StopScrollSmoothly(Random.Range(_duration, _duration + 5));
-        slotIndex++;
+        _rowList[_slotIndex].StopScrollSmoothly(Random.Range(_duration, _duration * 2));
+        _slotIndex++;
     }
     
     [One (10f)]
