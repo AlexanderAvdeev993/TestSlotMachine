@@ -12,7 +12,6 @@ public class FSMMain : MonoBehaviourExtBind
     [SerializeField] private float _slotSpeed;
     [SerializeField] private float _duration;
     
-    
     [OnStart]
     private void StartThis()
     {

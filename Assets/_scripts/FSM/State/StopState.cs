@@ -11,13 +11,13 @@ public class StopState : FSMState
     private float _duration;
     private int slotIndex;
     private Coroutine stopCoroutine;
-    
     private float delayTime = 1f;
     
     [Enter]
     private void EnterThis()
     {
         Log.Debug(" Enter StopState ");
+        slotIndex = 0;
         GetDataInModel();
     }
     
@@ -35,7 +35,6 @@ public class StopState : FSMState
     [Loop (3f)]
     private void LoopStopSlot()
     {   
-        Debug.Log("loop");
         if(_rowList.Count <= slotIndex)
             return;
         

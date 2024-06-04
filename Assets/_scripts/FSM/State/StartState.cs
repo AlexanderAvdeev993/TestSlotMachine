@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AxGrid;
+using AxGrid.Base;
 using AxGrid.FSM;
 using AxGrid.Model;
 using UnityEngine;
@@ -9,7 +10,6 @@ public class StartState : FSMState
 {
     private List<SlotItemScroll> _rowList = new List<SlotItemScroll>();
     private float _duration;
-    private float _elapsedTime;
     private float _targetSpeed;
     
     [Enter]
@@ -17,12 +17,10 @@ public class StartState : FSMState
     { 
         Debug.Log("StartState Enter");
         GetDataInModel();
-        //_elapsedTime = 0;
         
          foreach (var item in _rowList)
          {
              item.StartScrollAcceleration(_targetSpeed, _duration);
-             //item.ScrollSpeed = 1000;
          }
     }
 
