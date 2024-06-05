@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class ParticleSystemBind : MonoBehaviour
 {
-    public ParticleSystem particleSystem; 
+    public ParticleSystem _particleSystem; 
     private void Start()
     {
-        Settings.Model.Set("particleSystem", particleSystem);
+        Settings.Model.Set("particleSystem", _particleSystem);
     }
 }

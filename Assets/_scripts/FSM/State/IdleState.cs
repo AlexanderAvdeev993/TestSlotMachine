@@ -1,7 +1,6 @@
 ﻿using AxGrid;
 using AxGrid.FSM;
 using AxGrid.Model;
-using UnityEngine;
 
 [State("IdleState")]
 public class IdleState : FSMState
@@ -15,7 +14,6 @@ public class IdleState : FSMState
     [Bind("StartButton")]
     private void OnStartButtonClick()
     {   
-        Debug.Log("ClickButtonStart  in IdleState");
         Parent.Change("StartState");
     }
 }

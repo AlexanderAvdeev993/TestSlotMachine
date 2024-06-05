@@ -2,9 +2,7 @@ using System.Collections.Generic;
 using AxGrid;
 using AxGrid.Base;
 using AxGrid.FSM;
-using AxGrid.Model;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class FSMMain : MonoBehaviourExtBind
 { 
