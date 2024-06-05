@@ -10,6 +10,7 @@ public class StopState : FSMState
     private List<SlotItemScroll> _rowList = new List<SlotItemScroll>();
     private float _duration;
     private int _slotIndex;
+    private ParticleSystem _particleSystem;
     
     [Enter]
     private void EnterThis()
@@ -23,6 +24,7 @@ public class StopState : FSMState
     {
         _rowList = Settings.Model.Get<List<SlotItemScroll>>("rowSlots");
         _duration = Settings.Model.Get<float>("duration");
+        _particleSystem = Settings.Model.Get<ParticleSystem>("particleSystem");
     }
     
     [Loop (3f)]
@@ -35,9 +37,10 @@ public class StopState : FSMState
         _slotIndex++;
     }
     
-    [One (10f)]
+    [One (15f)]
     private void TransitionIdleState()
     {   
+        _particleSystem.Play();
         Parent.Change("IdleState");
     }
 }

@@ -10,14 +10,12 @@ public class IdleState : FSMState
     private void EnterThis()
     {
         Log.Debug("Enter IdleState");
-        Settings.Invoke("OnStopFieldChanged");
     }
     
     [Bind("StartButton")]
     private void OnStartButtonClick()
     {   
         Debug.Log("ClickButtonStart  in IdleState");
-        Settings.Invoke("OnStartFieldChanged");
         Parent.Change("StartState");
     }
 }

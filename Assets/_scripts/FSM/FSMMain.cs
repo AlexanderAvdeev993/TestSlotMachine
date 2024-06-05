@@ -27,7 +27,6 @@ public class FSMMain : MonoBehaviourExtBind
     {
         Settings.Fsm.Update(Time.deltaTime);
     }
-
     private void InitFSM()
     {
         Settings.Fsm = new FSM(); 

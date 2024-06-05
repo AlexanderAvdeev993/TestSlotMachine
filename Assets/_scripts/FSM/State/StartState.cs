@@ -10,7 +10,7 @@ public class StartState : FSMState
     private List<SlotItemScroll> _rowList = new List<SlotItemScroll>();
     private float _duration;
     private float _targetSpeed;
-    private bool _isClickActive;
+    private bool _isClickActive = false;
     
     [Enter]
     private void EnterThis()
@@ -31,7 +31,7 @@ public class StartState : FSMState
     }
     
     [One (3f)]
-    private void ChangeButtonAcyive()
+    private void ChangeButtonActive()
     {
         _isClickActive = true;
         Debug.Log("StopButtonActive");
@@ -41,7 +41,7 @@ public class StartState : FSMState
     private void OnStopButtonClick()
     {
         if (_isClickActive)
-        {
+        {   
             Parent.Change("StopState");
         }
     }
